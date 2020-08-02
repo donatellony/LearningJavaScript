@@ -12,6 +12,8 @@ let codes = {
   };
 
   const {bg, fg} = codes.mycodes; // деструктуризация
+  console.log(bg);
+  
   codes.makeTest();
   
   for (let code in codes) { //также можно сделать (for of, но оно не работает с объектами)
