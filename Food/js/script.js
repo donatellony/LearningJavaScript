@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     
           function hideTabContent() {
             tabsContent.forEach(e=>{
-                e.getElementsByClassName.display = 'none';
+                e.style.display = 'none';
             });
             
             tabs.forEach(tab=>{
@@ -15,12 +15,25 @@ window.addEventListener('DOMContentLoaded', ()=>{
             });
         }
     
-        function showTabContent(i) {
-            tabsContent[i].getElementsByClassName.display = 'block';
+        function showTabContent(i = 0) {
+            tabsContent[i].style.display = 'block';
             tabs[i].classList.add('tabheader__item_active');
         }
 
     
     hideTabContent();
-    showTabContent(0);
+    showTabContent();
+
+    tabsPatent.addEventListener('click', (event) => {
+        const target = event.target;
+
+        if(target && target.classList.contains('tabheader__item')){
+            tabs.forEach((item,i)=>{
+                if(target == item){
+                    hideTabContent();
+                    showTabContent(i);
+                }
+            });
+        }
+    });
 });
