@@ -137,20 +137,37 @@ window.addEventListener('DOMContentLoaded', ()=>{
     setClock('.timer', deadline);
 
     //MODAL WINDOWS
+    function hideModal(){
+        modal.classList.remove('show');
+        modal.classList.add('hide');
+        document.body.style.overflow = 'visible';
+    }
 
     const modalBtns = document.querySelectorAll("[data-modal]"),
           modalCloseBtn = document.querySelector("[data-close]"),
-          modalContent = document.querySelector('.modal');
+          modal = document.querySelector('.modal');
     
     modalBtns.forEach(e=>e.addEventListener('click', (event)=>{
                          event.preventDefault();
-                         modalContent.classList.add('show');
-                         modalContent.classList.remove('hide');
+                         modal.classList.add('show');
+                         modal.classList.remove('hide');
+                         document.body.style.overflow = 'hidden';
         }));
 
-    modalCloseBtn.addEventListener('click', (event)=> {
-                event.preventDefault();
-                modalContent.classList.toggle('show');
-                modalContent.classList.toggle('hide');
+    modalCloseBtn.addEventListener('click', hideModal);
+
+    modal.addEventListener('click', (e)=>{
+        e.preventDefault();
+        // console.log("TG: "+e.target.classList);
+        // console.log("CTG: "+ e.currentTarget.classList);
+        if(e.target === modal){
+            hideModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e)=>{
+        if(e.code === "Escape" && modal.classList.contains('show')){
+            hideModal();
+        }
     });
 });
