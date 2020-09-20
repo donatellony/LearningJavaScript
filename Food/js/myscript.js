@@ -137,6 +137,13 @@ window.addEventListener('DOMContentLoaded', ()=>{
     setClock('.timer', deadline);
 
     //MODAL WINDOWS
+    function showModal(){
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerId);
+    }
+
     function hideModal(){
         modal.classList.remove('show');
         modal.classList.add('hide');
@@ -149,9 +156,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     
     modalBtns.forEach(e=>e.addEventListener('click', (event)=>{
                          event.preventDefault();
-                         modal.classList.add('show');
-                         modal.classList.remove('hide');
-                         document.body.style.overflow = 'hidden';
+                         showModal();
         }));
 
     modalCloseBtn.addEventListener('click', hideModal);
@@ -170,4 +175,20 @@ window.addEventListener('DOMContentLoaded', ()=>{
             hideModal();
         }
     });
-});
+
+    //Opening modal window with time
+
+    const modalTimerId = setTimeout(showModal, 15000);
+
+    //Opening modal window while scrolling
+
+    function showModalByScroll(){
+        if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight){
+            showModal();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    }
+    
+
+    window.addEventListener('scroll', showModalByScroll);
+}); 
