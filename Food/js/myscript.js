@@ -192,4 +192,37 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
     window.addEventListener('scroll', showModalByScroll);
 
+    //RECREATING MENU ITEMS USING CLASSES
+
+    const menuItems = document.querySelectorAll('.menu__item');
+
+    class MenuCard{
+        constructor(imgSrc, alt, name, descr, price, parentSelector){
+            this.imgSrc = imgSrc;
+            this.alt = alt;
+            this.name = name;
+            this.descr = descr;
+            this.parent = document.querySelector(parentSelector);
+            this.price = price;
+        }
+        
+        render() {
+            const element = document.createElement('div');
+            element.innerHTML = `
+            <div class="menu__item">
+            <img src="img/tabs/vegy.jpg" alt="${this.alt}">
+            <h3 class="menu__item-subtitle">${this.name}</h3>
+            <div class="menu__item-descr">${this.descr}</div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+                <div class="menu__item-cost">Цена:</div>
+                <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+            </div>
+        </div>
+        `;
+        this.parent.append(element);
+        }
+    }
+    new MenuCard("img/tabs/vegy.jpg","vegy","JS Added","Test menu",2000, '.menu .container').render();
+
 }); 
